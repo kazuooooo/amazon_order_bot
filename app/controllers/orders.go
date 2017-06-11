@@ -5,6 +5,7 @@ import (
   "amazon_order_bot/app/amazon"
   "io/ioutil"
   "encoding/json"
+  "amazon_order_bot/app/notifier"
 )
 
 type Orders struct {
@@ -20,6 +21,8 @@ func (c Orders) Index() revel.Result {
   var orderInfo OrderInfo
   json.Unmarshal(bytes, &orderInfo)
   revel.INFO.Println(orderInfo.Id)
+  notifier.Slack{}.PostMessage(orderInfo.Id + "を注文します。")
   amazon.WebDriver{}.Order(orderInfo.Id)
+  notifier.Slack{}.PostMessage(orderInfo.Id + "を注文しました。")
   return c.Render()
 }
