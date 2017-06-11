@@ -2,7 +2,7 @@ package controllers
 
 import (
   "github.com/revel/revel"
-  // "amazon_order_bot/app/amazon"
+  "amazon_order_bot/app/amazon"
   "io/ioutil"
   "encoding/json"
 )
@@ -11,16 +11,15 @@ type Orders struct {
   *revel.Controller
 }
 
-type Order struct {
-  Id string `json:"id"`
+type OrderInfo struct {
+  Id string `json:"amazon_id"`
 }
 
 func (c Orders) Index() revel.Result {
   bytes, _ := ioutil.ReadAll(c.Request.Body)
-  var order Order
-  json.Unmarshal(bytes, &order)
-  revel.INFO.Println(order.AmazonId)
-
-  // amazon.WebDriver{}.Order(order.Id)
+  var orderInfo OrderInfo
+  json.Unmarshal(bytes, &orderInfo)
+  revel.INFO.Println(orderInfo.Id)
+  amazon.WebDriver{}.Order(orderInfo.Id)
   return c.Render()
 }

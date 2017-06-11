@@ -1,9 +1,14 @@
 package amazon
 
 import (
+  "os"
   "github.com/revel/revel"
   "github.com/sclevine/agouti"
 )
+
+var EMAIL = os.Getenv("AMAZON_ORDER_EMAIL")
+var PASSWORD = os.Getenv("AMAZON_ORDER_PASSWORD")
+
 type WebDriver struct {
 
 }
@@ -11,6 +16,7 @@ type WebDriver struct {
 func (c WebDriver) Hello() {
   print("hello webdriver")
 }
+
 
 func (c WebDriver) Order(productId string) string {
     // Declare Web Driver
@@ -26,10 +32,9 @@ func (c WebDriver) Order(productId string) string {
     page.Find("#nav-link-accountList").Click()
     // input form
     login(page)
-        page.Screenshot("a")
+
     // submit
     page.Find("#signInSubmit").Click()
-        page.Screenshot("b")
 
     // Purchase
     // go to product page
@@ -55,6 +60,6 @@ func (c WebDriver) Order(productId string) string {
 }
 
 func login(page *agouti.Page) {
-  page.Find("#ap_email").Fill("matsumotokazuya7@gmail.com")
-  page.Find("#ap_password").Fill("Itv9P2z1")
+  page.Find("#ap_email").Fill(EMAIL)
+  page.Find("#ap_password").Fill(PASSWORD)
 }
