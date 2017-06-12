@@ -1,0 +1,17 @@
+version: '2'
+services:
+  server:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - '80:80'
+  web:
+    build:
+      context: .
+      dockerfile: ./revel/Dockerfile
+    command: bundle exec unicorn -p 3000 -c /keiba-ai-simulator-rails/config/unicorn.rb
+    ports:
+      - '9000:9000'
+    depends_on:
+      - server
