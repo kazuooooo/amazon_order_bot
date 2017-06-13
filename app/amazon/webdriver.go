@@ -4,6 +4,7 @@ import (
   "os"
   "github.com/revel/revel"
   "github.com/sclevine/agouti"
+  "log"
 )
 
 var EMAIL    = os.Getenv("AMAZON_ORDER_EMAIL")
