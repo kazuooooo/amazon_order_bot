@@ -30,9 +30,14 @@ func (c WebDriver) Order(productId string) string {
 
     // Login
     // go to amazon top page
-    page.Navigate("https://www.amazon.com/")
+    if err := page.Navigate("https://www.amazon.com/"); err != nil {
+      log.Fatalf("Navigate Error:%v", err)
+    }
+
     // click sign in
-    page.Find("#nav-link-accountList").Click()
+    if err := page.Find("#nav-link-accountList").Click(); err != nil {
+      log.Fatalf("Find Error:%v", err)
+    }
     // input form
     login(page)
 
