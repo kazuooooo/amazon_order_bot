@@ -6,6 +6,7 @@ import (
   "io/ioutil"
   "encoding/json"
   "github.com/kazuooooo/amazon_order_bot/app/notifier"
+  "fmt"
 )
 
 type Orders struct {
@@ -17,7 +18,13 @@ type OrderInfo struct {
 }
 
 func (c Orders) Index() revel.Result {
-  bytes, _ := ioutil.ReadAll(c.Request.Body)
+  bytes, err := ioutil.ReadAll(c.Request.Body)
+  if err != nil {
+    s := err.Error()
+    fmt.Printf("type: %T; value: %q\n", s, s)
+  }
+  fmt.Printf("%s", string(bytes))
+  // fmt.Printf("%s", string(err))
   var orderInfo OrderInfo
   json.Unmarshal(bytes, &orderInfo)
   revel.INFO.Println(orderInfo.Id)
