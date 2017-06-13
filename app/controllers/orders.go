@@ -2,10 +2,10 @@ package controllers
 
 import (
   "github.com/revel/revel"
-  "amazon_order_bot/app/amazon"
+  "github.com/kazuooooo/amazon_order_bot/app/amazon"
   "io/ioutil"
   "encoding/json"
-  "amazon_order_bot/app/notifier"
+  "github.com/kazuooooo/amazon_order_bot/app/notifier"
 )
 
 type Orders struct {
