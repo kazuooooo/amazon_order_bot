@@ -6,8 +6,10 @@ import (
   "github.com/sclevine/agouti"
 )
 
-var EMAIL = os.Getenv("AMAZON_ORDER_EMAIL")
+var EMAIL    = os.Getenv("AMAZON_ORDER_EMAIL")
 var PASSWORD = os.Getenv("AMAZON_ORDER_PASSWORD")
+var ENVIRONMENT = os.Getenv("AMAZON_ORDER_ENVIRONMENT")
+
 
 type WebDriver struct {
 
@@ -20,7 +22,8 @@ func (c WebDriver) Hello() {
 
 func (c WebDriver) Order(productId string) string {
     // Declare Web Driver
-    agoutiDriver := agouti.ChromeDriver()
+    agoutiDriver := agouti.PhantomJS()
+
     agoutiDriver.Start()
     defer agoutiDriver.Stop() // defer 延ばす、延期する
     page, _ := agoutiDriver.NewPage()
